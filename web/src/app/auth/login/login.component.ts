@@ -18,9 +18,9 @@ export class LoginComponent implements OnInit {
   login(form) {
     this.http
       .post('http://localhost:3000/auth/login', form.value)
-      // .subscribe(data => {
-      //   console.log(data);
-      // });
+      .subscribe(data => {
+        console.log(data);
+      });
   }
 
 }

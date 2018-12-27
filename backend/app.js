@@ -1,10 +1,12 @@
 const express = require('express')
 const jwt = require('jsonwebtoken')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 
 const app = express()
 
 app.use(bodyParser.json())
+app.use(cors())
 
 /**
  Los verbos HTTP que deberia utilizar un formulario pueden ser POST o PUT
