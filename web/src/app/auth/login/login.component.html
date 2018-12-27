@@ -1,8 +1,8 @@
 <form
   #loginForm="ngForm"
   class="login"
-  (ngSubmit)="login(loginForm)" >
-  {{ loginForm.valid }}
+  (ngSubmit)="login(loginForm)"
+  autocomplete="off">
   <div class="login__input">
     <input
       type="text"
