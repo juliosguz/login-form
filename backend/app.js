@@ -2,11 +2,16 @@ const express = require('express')
 const jwt = require('jsonwebtoken')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+// const errorHandler = require('http-errors')
 
 const app = express()
 
 app.use(bodyParser.json())
 app.use(cors())
+
+function createError (res, status, message) {
+  res.status(status).json({ message })
+}
 
 /**
  Los verbos HTTP que deberia utilizar un formulario pueden ser POST o PUT
@@ -14,7 +19,7 @@ app.use(cors())
  /auth/verify (GET) -> Verificar el token
 */
 
-app.post('/auth/login', (req, res) => {
+app.post('/auth/login', (req, res, next) => {
   const token = jwt.sign({
     origin: 'Juliosguz Twitch',
     creationDate: new Date()
@@ -28,7 +33,10 @@ app.post('/auth/login', (req, res) => {
   ) {
     res.json({ token })
   } else {
-    res.json({ message: 'Credenciales invalidas' })
+    // res
+    //   .status(412)
+    //   .json({ message: 'Credenciales invalidas' })
+    createError(res, 412, 'Credenciales invalidas')
   }
 })
 
@@ -38,8 +46,18 @@ app.get('/auth/verify', (req, res) => {
     jwt.verify(token, process.env.SECRET)
     res.json({ status: 'ok', message: 'Token valido' })
   } catch (error) {
-    res.json({ status: 'error', message: 'Token invalido' })
+    // res
+    //   .status(400)
+    //   .json({ status: 'error', message: 'Token invalido' })
+    createError(res, 400, 'Token invalido')
   }
+})
+
+app.use((req, res) => {
+  // res
+  //   .status(404)
+  //   .json({ message: 'No se encontro nada' })
+  createError(res, 404, 'No se encontro nada')
 })
 
 app.listen(3000)
