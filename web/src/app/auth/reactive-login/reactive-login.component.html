@@ -1,5 +1,30 @@
 <form
   class="login"
+  [formGroup]="loginForm"
+  (ngSubmit)="login()"
+  autocomplete="off">
+  <div class="login__input">
+    <input
+      type="text"
+      name="username"
+      formControlName="username"
+      placeholder="Ingresar usuario">
+  </div>
+  <div class="login__input">
+    <input
+      type="password"
+      name="password"
+      formControlName="password"
+      placeholder="Ingresar contraseña">
+  </div>
+  <button
+    class="login__button"
+    type="submit"
+    [disabled]="loginForm.invalid"
+  >Iniciar sesion</button>
+</form>
+<!-- <form
+  class="login"
   (ngSubmit)="login()"
   autocomplete="off">
   <div class="login__input">
@@ -23,4 +48,4 @@
     class="login__button"
     type="submit"
   >Iniciar sesion</button>
-</form>
+</form> -->
