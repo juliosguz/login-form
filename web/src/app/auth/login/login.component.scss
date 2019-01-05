@@ -1,0 +1,33 @@
+/*
+BEM =>  Block Element Modifier
+
+
+*/
+
+.login {
+  width: 300px;
+  margin: 0 auto;
+  &__input {
+    margin: 16px;
+    input {
+      border: 0;
+      width: 100%;
+    }
+  }
+
+  &__button {
+    margin: 16px;
+  }
+}
+
+/*
+
+.login {
+  background-color: red;
+}
+
+.login__input {
+  background-color: blue;
+}
+
+*/

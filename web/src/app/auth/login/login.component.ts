@@ -18,8 +18,12 @@ export class LoginComponent implements OnInit {
   login(form) {
     this.http
       .post('http://localhost:3000/auth/login', form.value)
-      .subscribe(data => {
-        console.log(data);
+      .toPromise()
+      .then(data => {
+        console.log('[THEN]: ', data);
+      })
+      .catch(error => {
+        console.log('[CATCH]: ', error.error);
       });
   }
 
