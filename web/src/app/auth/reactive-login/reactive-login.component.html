@@ -1,0 +1,26 @@
+<form
+  class="login"
+  (ngSubmit)="login()"
+  autocomplete="off">
+  <div class="login__input">
+    <input
+      type="text"
+      name="username"
+      [formControl]="username"
+      placeholder="Ingresar usuario"
+      required >
+    Username {{ username.value }}
+  </div>
+  <div class="login__input">
+    <input
+      type="password"
+      name="password"
+      [formControl]="password"
+      placeholder="Ingresar contraseña">
+    Password {{ password.value }}
+  </div>
+  <button
+    class="login__button"
+    type="submit"
+  >Iniciar sesion</button>
+</form>

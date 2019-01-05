@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LoginReactiveComponent } from './login-reactive.component';
+import { ReactiveLoginComponent } from './reactive-login.component';
 
-describe('LoginReactiveComponent', () => {
-  let component: LoginReactiveComponent;
-  let fixture: ComponentFixture<LoginReactiveComponent>;
+describe('ReactiveLoginComponent', () => {
+  let component: ReactiveLoginComponent;
+  let fixture: ComponentFixture<ReactiveLoginComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginReactiveComponent ]
+      declarations: [ ReactiveLoginComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoginReactiveComponent);
+    fixture = TestBed.createComponent(ReactiveLoginComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
