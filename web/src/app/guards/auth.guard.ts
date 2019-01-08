@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -9,7 +9,8 @@ import { HttpClient } from '@angular/common/http';
 export class AuthGuard implements CanActivate {
   constructor(
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private ar: ActivatedRoute
   ) {}
 
   canActivate(
@@ -21,12 +22,20 @@ export class AuthGuard implements CanActivate {
         .get(`http://localhost:3000/auth/verify?token=${authToken}`)
         .toPromise()
         .then(data => {
-          // console.log('[THEN verify Token]', data);
-          this.router.navigate(['/dashboard']);
+          console.log('Everything is fine!');
+          if (/^\/auth/i.test(this.router.url)) {
+            console.log('[THEN]', this.router.url);
+            // this.router.navigate(['/dashboard']);
+          }
         })
         .catch(error => {
           console.log('[CATCH verify Token]', error);
+          console.log('No authToken and catch error');
+          // this.router.navigate(['/auth/reactive-login']);
+          localStorage.removeItem('authToken');
         });
+    } else {
+      this.router.navigate(['/auth/reactive-login']);
     }
     return true;
   }

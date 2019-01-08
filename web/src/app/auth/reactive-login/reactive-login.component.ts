@@ -6,6 +6,7 @@ import {
   Validators
 } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 interface LoginRequest {
   token: string;
@@ -23,6 +24,7 @@ export class ReactiveLoginComponent implements OnInit {
   loginForm;
 
   constructor(
+    private router: Router,
     private http: HttpClient,
     private fb: FormBuilder
   ) { }
@@ -49,6 +51,7 @@ export class ReactiveLoginComponent implements OnInit {
       .then((data: LoginRequest) => {
         console.log('[THEN]: ', data);
         localStorage.setItem('authToken', data.token);
+        this.router.navigate(['/dashboard']);
       })
       .catch(error => {
         console.log('[CATCH]: ', error.error);
