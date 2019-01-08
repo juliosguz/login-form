@@ -5,6 +5,11 @@ import {
   FormBuilder,
   Validators
 } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+
+interface LoginRequest {
+  token: string;
+}
 
 @Component({
   selector: 'app-reactive-login',
@@ -18,6 +23,7 @@ export class ReactiveLoginComponent implements OnInit {
   loginForm;
 
   constructor(
+    private http: HttpClient,
     private fb: FormBuilder
   ) { }
 
@@ -30,16 +36,23 @@ export class ReactiveLoginComponent implements OnInit {
     //   password: new FormControl('asdf')
     // });
     this.loginForm = this.fb.group({
-      username: ['juliosguz', [Validators.required, Validators.email]],
-      password: ['asdf', Validators.required]
+      username: ['', Validators.required],
+      password: ['', Validators.required]
     });
     // this.loginForm = new FormGroup()
   }
 
   login() {
-    // console.log('Username', this.username);
-    // console.log('Password', this.password);
-    console.log('loginForm', this.loginForm, this.loginForm.value);
+    this.http
+      .post('http://localhost:3000/auth/login', this.loginForm.value)
+      .toPromise()
+      .then((data: LoginRequest) => {
+        console.log('[THEN]: ', data);
+        localStorage.setItem('authToken', data.token);
+      })
+      .catch(error => {
+        console.log('[CATCH]: ', error.error);
+      });
   }
-
 }
+
